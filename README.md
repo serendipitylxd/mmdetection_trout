@@ -423,6 +423,15 @@ If you use this toolbox or benchmark in your research, please cite this project.
 }
 ```
 
+```
+@misc{trout2025,
+    title={TROUT: Multi-Modal Dataset for Intelligent Waterway Traffic Monitoring Using UAV and LiDAR Integration},
+    author={Xiaodong Lu, Weikai Tan,Kaofan Liu, Xinyue Luo,Sudong Xu},
+    howpublished = {\url{https://github.com/serendipitylxd/mmdetection_trout}},
+    year={2025}
+}
+```
+
 ## License
 
 This project is released under the [Apache 2.0 license](LICENSE).

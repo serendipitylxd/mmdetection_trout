@@ -65,7 +65,8 @@ model = dict(
     positional_encoding=dict(num_feats=128, normalize=True),
     bbox_head=dict(
         type='DETRHead',
-        num_classes=80,
+        #num_classes=80,
+        num_classes=6,
         embed_dims=256,
         loss_cls=dict(
             type='CrossEntropyLoss',
@@ -97,15 +98,15 @@ train_pipeline = [
         transforms=[[
             dict(
                 type='RandomChoiceResize',
-                scales=[(480, 1333), (512, 1333), (544, 1333), (576, 1333),
-                        (608, 1333), (640, 1333), (672, 1333), (704, 1333),
-                        (736, 1333), (768, 1333), (800, 1333)],
+                scales=[(480, 1024), (512, 1024), (544, 1024), (576, 1024),
+                        (608, 1024), (640, 1024), (672, 1024), (704, 1024),
+                        (736, 1024), (768, 1024), (800, 1024)],
                 keep_ratio=True)
         ],
                     [
                         dict(
                             type='RandomChoiceResize',
-                            scales=[(400, 1333), (500, 1333), (600, 1333)],
+                            scales=[(400, 1024), (500, 1024), (600, 1024)],
                             keep_ratio=True),
                         dict(
                             type='RandomCrop',
@@ -114,10 +115,10 @@ train_pipeline = [
                             allow_negative_crop=True),
                         dict(
                             type='RandomChoiceResize',
-                            scales=[(480, 1333), (512, 1333), (544, 1333),
-                                    (576, 1333), (608, 1333), (640, 1333),
-                                    (672, 1333), (704, 1333), (736, 1333),
-                                    (768, 1333), (800, 1333)],
+                            scales=[(480, 1024), (512, 1024), (544, 1024),
+                                    (576, 1024), (608, 1024), (640, 1024),
+                                    (672, 1024), (704, 1024), (736, 1024),
+                                    (768, 1024), (800, 1024)],
                             keep_ratio=True)
                     ]]),
     dict(type='PackDetInputs')
@@ -127,7 +128,7 @@ train_dataloader = dict(dataset=dict(pipeline=train_pipeline))
 # optimizer
 optim_wrapper = dict(
     type='OptimWrapper',
-    optimizer=dict(type='AdamW', lr=0.0001, weight_decay=0.0001),
+    optimizer=dict(type='AdamW', lr=0.0002, weight_decay=0.0001),
     clip_grad=dict(max_norm=0.1, norm_type=2),
     paramwise_cfg=dict(
         custom_keys={'backbone': dict(lr_mult=0.1, decay_mult=1.0)}))

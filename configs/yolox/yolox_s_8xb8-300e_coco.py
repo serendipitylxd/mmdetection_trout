@@ -3,7 +3,7 @@ _base_ = [
     './yolox_tta.py'
 ]
 
-img_scale = (640, 640)  # width, height
+img_scale = (1024, 1024)  # width, height
 
 # model settings
 model = dict(
@@ -39,7 +39,8 @@ model = dict(
         act_cfg=dict(type='Swish')),
     bbox_head=dict(
         type='YOLOXHead',
-        num_classes=80,
+        #num_classes=80,
+        num_classes=6,
         in_channels=128,
         feat_channels=128,
         stacked_convs=2,
@@ -70,7 +71,7 @@ model = dict(
     test_cfg=dict(score_thr=0.01, nms=dict(type='nms', iou_threshold=0.65)))
 
 # dataset settings
-data_root = 'data/coco/'
+data_root = 'data/coco_TROUT/'
 dataset_type = 'CocoDataset'
 
 # Example to use different file client
@@ -168,14 +169,31 @@ val_dataloader = dict(
         test_mode=True,
         pipeline=test_pipeline,
         backend_args=backend_args))
-test_dataloader = val_dataloader
+test_dataloader = dict(
+    batch_size=8,
+    num_workers=4,
+    persistent_workers=True,
+    drop_last=False,
+    sampler=dict(type='DefaultSampler', shuffle=False),
+    dataset=dict(
+        type=dataset_type,
+        data_root=data_root,
+        ann_file='annotations/instances_test2017.json',
+        data_prefix=dict(img='test2017/'),
+        test_mode=True,
+        pipeline=test_pipeline,
+        backend_args=backend_args))
 
 val_evaluator = dict(
     type='CocoMetric',
     ann_file=data_root + 'annotations/instances_val2017.json',
     metric='bbox',
     backend_args=backend_args)
-test_evaluator = val_evaluator
+test_evaluator = dict(
+    type='CocoMetric',
+    ann_file=data_root + 'annotations/instances_test2017.json',
+    metric='bbox',
+    backend_args=backend_args)
 
 # training settings
 max_epochs = 300
@@ -186,7 +204,7 @@ train_cfg = dict(max_epochs=max_epochs, val_interval=interval)
 
 # optimizer
 # default 8 gpu
-base_lr = 0.01
+base_lr = 0.004
 optim_wrapper = dict(
     type='OptimWrapper',
     optimizer=dict(

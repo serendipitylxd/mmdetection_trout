@@ -59,7 +59,8 @@ model = dict(
         temperature=20),  # 10000 for DeformDETR
     bbox_head=dict(
         type='DINOHead',
-        num_classes=80,
+        #num_classes=80,
+        num_classes=6,
         sync_cls_avg_factor=True,
         loss_cls=dict(
             type='FocalLoss',
@@ -97,9 +98,9 @@ train_pipeline = [
             [
                 dict(
                     type='RandomChoiceResize',
-                    scales=[(480, 1333), (512, 1333), (544, 1333), (576, 1333),
-                            (608, 1333), (640, 1333), (672, 1333), (704, 1333),
-                            (736, 1333), (768, 1333), (800, 1333)],
+                scales=[(544, 1024), (592, 1024), (640, 1024), (688, 1024),
+                        (736, 1024), (784, 1024), (832, 1024), (880, 1024),
+                        (928, 1024), (976, 1024), (1024, 1024)],
                     keep_ratio=True)
             ],
             [
@@ -116,14 +117,16 @@ train_pipeline = [
                     allow_negative_crop=True),
                 dict(
                     type='RandomChoiceResize',
-                    scales=[(480, 1333), (512, 1333), (544, 1333), (576, 1333),
-                            (608, 1333), (640, 1333), (672, 1333), (704, 1333),
-                            (736, 1333), (768, 1333), (800, 1333)],
+                            scales=[(544, 1024), (592, 1024), (640, 1024),
+                                    (688, 1024), (736, 1024), (784, 1024),
+                                    (832, 1024), (880, 1024), (928, 1024),
+                                    (976, 1024), (1024, 1024)],
                     keep_ratio=True)
             ]
         ]),
     dict(type='PackDetInputs')
 ]
+
 train_dataloader = dict(
     dataset=dict(
         filter_cfg=dict(filter_empty_gt=False), pipeline=train_pipeline))

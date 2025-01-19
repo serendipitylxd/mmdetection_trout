@@ -32,7 +32,8 @@ model = dict(
             conv_out_channels=256,
             fc_out_channels=1024,
             roi_feat_size=7,
-            num_classes=80,
+            #num_classes=80,
+            num_classes=6,
             bbox_coder=dict(
                 type='DeltaXYWHBBoxCoder',
                 target_means=[0., 0., 0., 0.],
@@ -51,7 +52,8 @@ model = dict(
             conv_out_channels=256,
             fc_out_channels=1024,
             roi_feat_size=7,
-            num_classes=80,
+            #num_classes=80,
+            num_classes=6,
             bbox_coder=dict(
                 type='DeltaXYWHBBoxCoder',
                 target_means=[0., 0., 0., 0.],
@@ -70,7 +72,8 @@ model = dict(
             conv_out_channels=256,
             fc_out_channels=1024,
             roi_feat_size=7,
-            num_classes=80,
+            #num_classes=80,
+            num_classes=6,
             bbox_coder=dict(
                 type='DeltaXYWHBBoxCoder',
                 target_means=[0., 0., 0., 0.],
@@ -93,15 +96,15 @@ train_pipeline = [
         transforms=[[
             dict(
                 type='RandomChoiceResize',
-                scales=[(480, 1333), (512, 1333), (544, 1333), (576, 1333),
-                        (608, 1333), (640, 1333), (672, 1333), (704, 1333),
-                        (736, 1333), (768, 1333), (800, 1333)],
+                scales=[(544, 1024), (592, 1024), (640, 1024), (688, 1024),
+                        (736, 1024), (784, 1024), (832, 1024), (880, 1024),
+                        (928, 1024), (976, 1024), (1024, 1024)],
                 keep_ratio=True)
         ],
                     [
                         dict(
                             type='RandomChoiceResize',
-                            scales=[(400, 1333), (500, 1333), (600, 1333)],
+                            scales=[(400, 1024), (500, 1024), (600, 1024)],
                             keep_ratio=True),
                         dict(
                             type='RandomCrop',
@@ -110,10 +113,10 @@ train_pipeline = [
                             allow_negative_crop=True),
                         dict(
                             type='RandomChoiceResize',
-                            scales=[(480, 1333), (512, 1333), (544, 1333),
-                                    (576, 1333), (608, 1333), (640, 1333),
-                                    (672, 1333), (704, 1333), (736, 1333),
-                                    (768, 1333), (800, 1333)],
+                            scales=[(544, 1024), (592, 1024), (640, 1024),
+                                    (688, 1024), (736, 1024), (784, 1024),
+                                    (832, 1024), (880, 1024), (928, 1024),
+                                    (976, 1024), (1024, 1024)],
                             keep_ratio=True)
                     ]]),
     dict(type='PackDetInputs')

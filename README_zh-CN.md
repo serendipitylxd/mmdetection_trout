@@ -424,6 +424,15 @@ MMDetection 是一款由来自不同高校和企业的研发人员共同参与�
   year={2019}
 }
 ```
+```
+@misc{trout2025,
+    title={TROUT: Multi-Modal Dataset for Intelligent Waterway Traffic Monitoring Using UAV and LiDAR Integration},
+    author={Xiaodong Lu, Weikai Tan,Kaofan Liu, Xinyue Luo,Sudong Xu},
+    howpublished = {\url{https://github.com/serendipitylxd/mmdetection_trout}},
+    year={2025}
+}
+```
+
 
 ## 开源许可证
 

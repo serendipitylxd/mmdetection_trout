@@ -69,7 +69,8 @@ model = dict(
     positional_encoding=dict(num_feats=128, temperature=20, normalize=True),
     bbox_head=dict(
         type='DABDETRHead',
-        num_classes=80,
+        #num_classes=80,
+        num_classes=6,
         embed_dims=256,
         loss_cls=dict(
             type='FocalLoss',
@@ -89,6 +90,9 @@ model = dict(
                 dict(type='IoUCost', iou_mode='giou', weight=2.0)
             ])),
     test_cfg=dict(max_per_img=300))
+    
+#Load the pre-trained model   
+load_from = './dab-detr_r50_8xb2-50e_coco_20221122_120837-c1035c8c.pth'
 
 # train_pipeline, NOTE the img_scale and the Pad's size_divisor is different
 # from the default setting in mmdet.
@@ -101,15 +105,15 @@ train_pipeline = [
         transforms=[[
             dict(
                 type='RandomChoiceResize',
-                scales=[(480, 1333), (512, 1333), (544, 1333), (576, 1333),
-                        (608, 1333), (640, 1333), (672, 1333), (704, 1333),
-                        (736, 1333), (768, 1333), (800, 1333)],
+                scales=[(544, 1024), (592, 1024), (640, 1024), (688, 1024),
+                        (736, 1024), (784, 1024), (832, 1024), (880, 1024),
+                        (928, 1024), (976, 1024), (1024, 1024)],
                 keep_ratio=True)
         ],
                     [
                         dict(
                             type='RandomChoiceResize',
-                            scales=[(400, 1333), (500, 1333), (600, 1333)],
+                            scales=[(400, 1024), (500, 1024), (600, 1024)],
                             keep_ratio=True),
                         dict(
                             type='RandomCrop',
@@ -118,10 +122,10 @@ train_pipeline = [
                             allow_negative_crop=True),
                         dict(
                             type='RandomChoiceResize',
-                            scales=[(480, 1333), (512, 1333), (544, 1333),
-                                    (576, 1333), (608, 1333), (640, 1333),
-                                    (672, 1333), (704, 1333), (736, 1333),
-                                    (768, 1333), (800, 1333)],
+                            scales=[(544, 1024), (592, 1024), (640, 1024),
+                                    (688, 1024), (736, 1024), (784, 1024),
+                                    (832, 1024), (880, 1024), (928, 1024),
+                                    (976, 1024), (1024, 1024)],
                             keep_ratio=True)
                     ]]),
     dict(type='PackDetInputs')

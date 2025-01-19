@@ -9,7 +9,7 @@ from mmdet.evaluation import CocoMetric
 
 # dataset settings
 dataset_type = CocoDataset
-data_root = 'data/coco/'
+data_root = 'data/coco_TROUT/'
 
 # Example to use different file client
 # Method 1: simply set the data root and let the file I/O module
@@ -29,13 +29,14 @@ backend_args = None
 train_pipeline = [
     dict(type=LoadImageFromFile, backend_args=backend_args),
     dict(type=LoadAnnotations, with_bbox=True),
-    dict(type=Resize, scale=(1333, 800), keep_ratio=True),
+    #dict(type=Resize, scale=(1333, 800), keep_ratio=True),
+    dict(type=Resize, scale=(1024, 1024), keep_ratio=True),
     dict(type=RandomFlip, prob=0.5),
     dict(type=PackDetInputs)
 ]
 test_pipeline = [
     dict(type=LoadImageFromFile, backend_args=backend_args),
-    dict(type=Resize, scale=(1333, 800), keep_ratio=True),
+    dict(type=Resize, scale=(1024, 1024), keep_ratio=True),
     # If you don't have a gt annotation, delete the pipeline
     dict(type=LoadAnnotations, with_bbox=True),
     dict(
