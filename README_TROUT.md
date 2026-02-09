@@ -253,7 +253,7 @@ python tools/test.py configs/atss/atss_r50_fpn_1x_coco.py atss_outputs/epoch_12.
 mmdetection_trout
 ├── mmdet
 │   ├── datasets
-│   │   │── init.py
+│   │   │── coco.py
 ```
 
 ```python
